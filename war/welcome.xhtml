@@ -1,0 +1,55 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:p="http://primefaces.org/ui"
+   >
+   <h:head id="head">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Instituciones de Lima</title>
+   </h:head>
+   <h:body id="body">
+   <h:form>
+   		 <p:menubar autoDisplay="false">  
+   		 	<p:menuitem value="Save"/>
+	        <p:submenu label="Acerca De" icon="ui-icon-help" style="position:absolute; right:20px">  
+	            <p:menuitem value="1" url="#" />  
+	            <p:separator />  
+	            <p:menuitem value="2" url="#" />  
+        	</p:submenu>  
+        </p:menubar>
+   </h:form>
+   		<center>
+   		<table style="width:90%">
+			<tr>
+			  <td style="width:10px"><p:commandButton type="button" onclick="PF('switcher').previous();"
+		icon="ui-icon-circle-triangle-w" /></td>
+			  <td style="width:80%px">
+				<p:imageSwitch  effect="fade"  widgetVar="switcher" slideshowAuto="true">  
+			        <ui:repeat value="#{imageSwitchMB.images}" var="image">  
+			            <p:graphicImage  value="#{image}" width="100%" height="400"/>  
+			        </ui:repeat>
+			     </p:imageSwitch>
+			  </td>		
+			  <td style="width:10px"><p:commandButton type="button" onclick="PF('switcher').next();"
+		icon="ui-icon-circle-triangle-e" /></td>
+			</tr>
+		</table>
+   		   		      
+	<h1>Bienvenido a Lima Instituciones</h1>
+    	
+    	
+    	<h:panelGrid columns="1" cellpadding="5">  
+		    <p:commandButton id="basic" value="Entrar" onclick="PF('dlg1').show();" type="button" />    
+		</h:panelGrid>  
+    	
+    	
+    	<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg1">  
+		    <h:outputText value="Resistance to PrimeFaces is futile!" />  
+		</p:dialog>
+    	</center>
+   </h:body>
+</html>
