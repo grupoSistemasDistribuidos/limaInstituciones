@@ -21,8 +21,9 @@
 	            <p:menuitem value="2" url="#" />  
         	</p:submenu>  
         </p:menubar>
-   </h:form>
+  
    		<center>
+   		
    		<table style="width:90%">
 			<tr>
 			  <td style="width:10px"><p:commandButton type="button" onclick="PF('switcher').previous();"
@@ -37,19 +38,18 @@
 			  <td style="width:10px"><p:commandButton type="button" onclick="PF('switcher').next();"
 		icon="ui-icon-circle-triangle-e" /></td>
 			</tr>
-		</table>
+		</table> 
+		
    		   		      
 	<h1>Bienvenido a Lima Instituciones</h1>
     	
     	
     	<h:panelGrid columns="1" cellpadding="5">  
-		    <p:commandButton id="basic" value="Entrar" onclick="PF('dlg1').show();" type="button" />    
+		    <p:commandButton id="basic" value="Entrar" 
+		    		action="#{navegarMB.entrar}"  />    
 		</h:panelGrid>  
-    	
-    	
-    	<p:dialog id="basicDialog" header="Basic Dialog" widgetVar="dlg1">  
-		    <h:outputText value="Resistance to PrimeFaces is futile!" />  
-		</p:dialog>
     	</center>
+   	</h:form>
    </h:body>
+    
 </html>

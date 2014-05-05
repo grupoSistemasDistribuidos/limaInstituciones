@@ -11,7 +11,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     Template JSF 2.1 application configured to run on the Google
     AppEngine for Java.
    </description>
-   <!-- ***** Designate client-side state saving. *****  -->
+    <!--<context-param>
+   <param-name>javax.faces.CONFIG_FILES</param-name>
+    <param-value>/WEB-INF/faces-config.xml</param-value>
+		</context-param>
+   ***** Designate client-side state saving. *****  -->
    <context-param>
       <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
       <param-value>client</param-value>
@@ -36,6 +40,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
          pick up new versions of resources when ProjectStage is development.
       </description>
    </context-param>
+   <context-param>  
+        <param-name>javax.faces.PROJECT_STAGE</param-name>  
+        <param-value>Production</param-value>  
+    </context-param>  
    <!-- ***** Specify JBoss Expression Language Over Default -->
    <context-param>     
       <param-name>com.sun.faces.expressionFactory</param-name>
@@ -76,8 +84,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
       <session-timeout>30</session-timeout>
    </session-config>
    <welcome-file-list>
-      <welcome-file>index.xhtml</welcome-file>
-      <welcome-file>index.jsp</welcome-file>
-      <welcome-file>index.html</welcome-file>
+      <welcome-file>faces/vista/bienvenido.xhtml</welcome-file>
    </welcome-file-list>
 </web-app>
