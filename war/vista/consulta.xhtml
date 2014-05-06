@@ -19,39 +19,36 @@
 			<h:outputText value="Opciones: " style="color:blue;" />
 			<p:selectOneRadio id="opciones"
 				value="#{consultarInstitucionMB.opcionBusqueda}">
-				<f:selectItem itemLabel="ciudad" itemValue="1" />
-				<f:selectItem itemLabel="provincia" itemValue="2" />
+				<f:selectItem itemLabel="nombre" itemValue="1" />
+				<f:selectItem itemLabel="ugel" itemValue="2" />
 				<f:selectItem itemLabel="distrito" itemValue="3" />
 			</p:selectOneRadio>
 		</h:panelGrid>
-		<div style="width: 900px">
+		<div style="width: 900px;height:800px;">
 			<br />
 			<fieldset>
 				<legend style="color:blue;">Listado de Instituciones</legend>
 				<h:form>
-					<p:dataTable value="#{ConsultarInstitucionMB.instituciones}"
+					<p:dataTable value="#{consultarInstitucionMB.instituciones}"
 						id="listaInstituciones" 
 						var="institucion">
-						<h:column>
+						<p:column>
 							<f:facet name="header"> Id</f:facet>
 						#{institucion.id}
-					</h:column>
-						<h:column>
+						</p:column>
+						<p:column>
 							<f:facet name="header"> Nombre </f:facet>
 						#{institucion.nombre}
-					</h:column>
-					<h:column>
-							<f:facet name="header"> Ciudad</f:facet>
-						#{institucion.ciudad}
-					</h:column>
-					<h:column>
-							<f:facet name="header"> Provincia</f:facet>
-						#{institucion.provincia}
-					</h:column>
-					<h:column>
+						</p:column>
+					<p:column>
+							<f:facet name="header"> Ugel</f:facet>
+						#{institucion.ugel}
+					</p:column>
+					<p:column>
 							<f:facet name="header"> Distrito</f:facet>
 						#{institucion.distrito}
-					</h:column>
+					</p:column>
+					
 					</p:dataTable>
 				</h:form>
 			</fieldset>
