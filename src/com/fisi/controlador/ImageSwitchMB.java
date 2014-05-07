@@ -1,4 +1,4 @@
-package com.fisi.managedBean;
+package com.fisi.controlador;
 
 import java.io.Serializable;
 import java.util.ArrayList;

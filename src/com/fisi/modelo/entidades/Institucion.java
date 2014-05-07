@@ -1,4 +1,4 @@
-package com.fisi.modelo;
+package com.fisi.modelo.entidades;
 
 import java.io.Serializable;
 

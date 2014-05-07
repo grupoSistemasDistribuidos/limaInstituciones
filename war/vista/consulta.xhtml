@@ -8,14 +8,16 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>Consulta</h:head>
 <h:body>
-	<h:form>
+	<h:form id="formularioInsti">
 		<center>
 		<h2 style="color: blue;">Consultar instituciones</h2>
 		<h:panelGrid columns="3" style="margin-bottom:20px;" cellpadding="8">
 			<h:outputLabel for="name" value="Filtro:" style="color:blue;" />
-			<p:inputText id="name" required="true" style="color:blue;" />
+			<p:inputText value="#{consultarInstitucionMB.filtro}" id="name" required="true" style="color:blue;" />
 			<p:commandButton id="btnBusqueda" value="Buscar"
-				action="#{consultarInstitucionMB.buscar}" />
+				action="#{consultarInstitucionMB.buscar}"
+				update="formularioInsti:listaInstituciones"
+				 />
 			<h:outputText value="Opciones: " style="color:blue;" />
 			<p:selectOneRadio id="opciones"
 				value="#{consultarInstitucionMB.opcionBusqueda}">
@@ -24,12 +26,12 @@
 				<f:selectItem itemLabel="distrito" itemValue="3" />
 			</p:selectOneRadio>
 		</h:panelGrid>
-		<div style="width: 900px;height:800px;">
+		<div style="width: 900px">
 			<br />
 			<fieldset>
 				<legend style="color:blue;">Listado de Instituciones</legend>
-				<h:form>
-					<p:dataTable value="#{consultarInstitucionMB.instituciones}"
+				
+					<p:dataTable value="#{consultarInstitucionMB.institucionesFiltro}"
 						id="listaInstituciones" 
 						var="institucion">
 						<p:column>
@@ -50,7 +52,7 @@
 					</p:column>
 					
 					</p:dataTable>
-				</h:form>
+				
 			</fieldset>
 		</div>
 		</center>

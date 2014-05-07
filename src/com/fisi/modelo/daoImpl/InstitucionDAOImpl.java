@@ -1,10 +1,10 @@
-package DAOImpl;
+package com.fisi.modelo.daoImpl;
 
 import java.util.ArrayList;
 
-import com.fisi.modelo.Institucion;
+import com.fisi.modelo.dao.InstitucionDAO;
+import com.fisi.modelo.entidades.Institucion;
 
-import DAO.InstitucionDAO;
 
 public class InstitucionDAOImpl implements InstitucionDAO{
 
