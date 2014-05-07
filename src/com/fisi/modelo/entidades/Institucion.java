@@ -2,10 +2,22 @@ package com.fisi.modelo.entidades;
 
 import java.io.Serializable;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
+@PersistenceCapable
 public class Institucion implements Serializable{
+	private static final long serialVersionUID = 3896230783384250347L;
+	@PrimaryKey
+    @Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
 	private int id;
+	@Persistent
 	private String nombre;
+	@Persistent
 	private String ugel;
+	@Persistent
 	private String distrito;
 	
 	public Institucion() {

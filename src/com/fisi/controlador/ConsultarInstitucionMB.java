@@ -8,6 +8,8 @@ import javax.faces.bean.ViewScoped;
 
 import sun.org.mozilla.javascript.internal.ast.ForInLoop;
 
+import com.fisi.modelo.dao.InstitucionDAO;
+import com.fisi.modelo.daoImpl.InstitucionDAOImpl;
 import com.fisi.modelo.entidades.Institucion;
 
 @ManagedBean(name = "consultarInstitucionMB")
@@ -21,7 +23,7 @@ public class ConsultarInstitucionMB implements Serializable {
 	private ArrayList<Institucion> instituciones;
 	private ArrayList<Institucion> institucionesFiltro;
 	private static final long serialVersionUID = 6586451817677535594L;
-
+	private InstitucionDAO institucionDAO= new InstitucionDAOImpl();
 	public ConsultarInstitucionMB() {
 		init();
 	}
@@ -30,6 +32,7 @@ public class ConsultarInstitucionMB implements Serializable {
 		opcionBusqueda = 1;
 		instituciones = new ArrayList<Institucion>();
 		institucionesFiltro = new ArrayList<Institucion>();
+		
 		// no funciono el ejemplo u.u
 		Institucion ejemplo = new Institucion(1, "guadalupe", "ugel 1",
 				"San Juan de Lurigancho");
@@ -40,6 +43,9 @@ public class ConsultarInstitucionMB implements Serializable {
 		instituciones.add(ejemplo);
 		instituciones.add(ejemplo2);
 		instituciones.add(ejemplo3);
+		institucionDAO.insertarTodoInstitucion(instituciones);
+		instituciones.clear();
+		instituciones=institucionDAO.buscarInstituciones();
 		copiarTodo(instituciones);
 	}
 
