@@ -2,6 +2,7 @@ package com.fisi.controlador;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -16,7 +17,13 @@ import com.fisi.modelo.entidades.Institucion;
 //@ViewScoped
 public class ConsultarInstitucionMB implements Serializable {
 	private int opcionBusqueda;
+	private int searchUgel;
+	private int sUgel;
+	private boolean busqNombre;
+	private boolean busqUgel;
+	private boolean busqDistrito;
 	private String filtro="";
+	private String filtro3="";
 	private static final int nombre = 1;
 	private static final int ugel = 2;
 	private static final int distrito = 3;
@@ -24,28 +31,33 @@ public class ConsultarInstitucionMB implements Serializable {
 	private ArrayList<Institucion> institucionesFiltro;
 	private static final long serialVersionUID = 6586451817677535594L;
 	private InstitucionDAO institucionDAO= new InstitucionDAOImpl();
+	
 	public ConsultarInstitucionMB() {
 		init();
 	}
 
 	private void init() {
+		busqNombre = false;
+		busqUgel = true;
+		busqDistrito = true;
 		opcionBusqueda = 1;
 		instituciones = new ArrayList<Institucion>();
 		institucionesFiltro = new ArrayList<Institucion>();
 		
 		// no funciono el ejemplo u.u
-		Institucion ejemplo = new Institucion(1, "guadalupe", "ugel 1",
+		//Aquí se cargará desde la BD todas las instituciones
+		Institucion ejemplo = new Institucion(1, "guadalupe", "1",
 				"San Juan de Lurigancho");
-		Institucion ejemplo2 = new Institucion(2, "santa fe", "ugel 2",
+		Institucion ejemplo2 = new Institucion(2, "santa fe", "2",
 				"San Martin de Porres");
-		Institucion ejemplo3 = new Institucion(3, "priale", "ugel 3",
+		Institucion ejemplo3 = new Institucion(3, "priale", "3",
 				"San Juan de Lurigancho");
 		instituciones.add(ejemplo);
 		instituciones.add(ejemplo2);
 		instituciones.add(ejemplo3);
-		institucionDAO.insertarTodoInstitucion(instituciones);
-		instituciones.clear();
-		instituciones=institucionDAO.buscarInstituciones();
+		//institucionDAO.insertarTodoInstitucion(instituciones);
+		//instituciones.clear();
+		//instituciones=institucionDAO.buscarInstituciones();
 		copiarTodo(instituciones);
 	}
 
@@ -72,11 +84,11 @@ public class ConsultarInstitucionMB implements Serializable {
 	}
 
 	public void buscar() {
-		System.out.println("Hola");
-		if (getFiltro() == null)
+		System.out.println("Búsqueda: "+opcionBusqueda);
+		if (getFiltro() == null || getFiltro()=="")
 			copiarTodo(instituciones);
-		else if(getFiltro()=="") 
-			copiarTodo(instituciones);
+		//else if(getFiltro()=="") 
+		//	copiarTodo(instituciones);
 		else{
 			institucionesFiltro.clear();
 			switch (opcionBusqueda) {
@@ -92,23 +104,35 @@ public class ConsultarInstitucionMB implements Serializable {
 			}
 		}
 	}
-
+	
+	public void buscarUgel(){
+		institucionesFiltro.clear();
+		buscarPorUgel();
+	}
+	
+	public void buscarDistrito(){
+		buscarPorDistrito();
+	}
+	
 	private void buscarPorDistrito() {
+		institucionesFiltro.clear();
 		String distrito, filtro;
 		for (Institucion institucion : instituciones) {
 			distrito = institucion.getDistrito().toLowerCase();
-			filtro = getFiltro().toLowerCase();
+			filtro = getFiltro3().toLowerCase();			
 			if (distrito.contains(filtro))
 				institucionesFiltro.add(institucion);
 		}
 	}
 
 	private void buscarPorUgel() {
-		String ugel, filtro;
+		int ugel; 
+		int filtro;
 		for (Institucion institucion : instituciones) {
-			ugel = institucion.getUgel().toLowerCase();
-			filtro = getFiltro().toLowerCase();
-			if (ugel.contains(filtro))
+			ugel = Integer.parseInt(institucion.getUgel());			
+			filtro = getsUgel();
+			System.out.println("Compara: "+ugel+" - "+filtro);
+			if (ugel == filtro)
 				institucionesFiltro.add(institucion);
 		}
 	}
@@ -122,7 +146,25 @@ public class ConsultarInstitucionMB implements Serializable {
 				institucionesFiltro.add(institucion);
 		}
 	}
-
+	
+	public void opcionActiva(){
+		System.out.println("---> "+opcionBusqueda);
+		switch(opcionBusqueda){
+		case nombre:
+			actualizar(false,true,true);
+		case ugel:
+			actualizar(true,false,true);
+		case distrito:
+			actualizar(true,true,false);
+		}
+	}
+	
+	private void actualizar(boolean c1, boolean c2, boolean c3){
+		setBusqNombre(c1);
+		setBusqUgel(c2);
+		setBusqDistrito(c3);
+	}
+	
 	public ArrayList<Institucion> getInstituciones() {
 		return instituciones;
 	}
@@ -138,6 +180,57 @@ public class ConsultarInstitucionMB implements Serializable {
 	public void setInstitucionesFiltro(
 			ArrayList<Institucion> institucionesFiltro) {
 		this.institucionesFiltro = institucionesFiltro;
+	}
+
+	public int getSearchUgel() {
+		return searchUgel;
+	}
+
+	public void setSearchUgel(int searchUgel) {
+		this.searchUgel = searchUgel;
+	}
+
+	public boolean getBusqNombre() {
+		System.out.println("bN-"+busqNombre);
+		return busqNombre;
+	}
+
+	public void setBusqNombre(boolean busqNombre) {
+		this.busqNombre = busqNombre;
+	}
+
+	public boolean getBusqUgel() {
+		System.out.println("bU-"+busqUgel);
+		return busqUgel;
+	}
+
+	public void setBusqUgel(boolean busqUgel) {
+		this.busqUgel = busqUgel;
+	}
+
+	public boolean getBusqDistrito() {
+		System.out.println("bD-"+busqDistrito);
+		return busqDistrito;
+	}
+
+	public void setBusqDistrito(boolean busqDistrito) {
+		this.busqDistrito = busqDistrito;
+	}
+
+	public String getFiltro3() {
+		return filtro3;
+	}
+
+	public void setFiltro3(String filtro3) {
+		this.filtro3 = filtro3;
+	}
+
+	public int getsUgel() {
+		return sUgel;
+	}
+
+	public void setsUgel(int sUgel) {
+		this.sUgel = sUgel;
 	}
 
 }

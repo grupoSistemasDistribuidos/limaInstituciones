@@ -6,27 +6,58 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>Consulta</h:head>
+<h:head>
+	<title>Consultar Instituciones</title>
+</h:head>
 <h:body>
+
+<table>
+<tr>
+  <td style="width:80%">
+
+<div id="bienvenido" align="center" style="font-size:10px;font-family: verdana,arial, sans-serif">
 	<h:form id="formularioInsti">
-		<center>
-		<h2 style="color: blue;">Consultar instituciones</h2>
-		<h:panelGrid columns="3" style="margin-bottom:20px;" cellpadding="8">
-			<h:outputLabel for="name" value="Filtro:" style="color:blue;" />
-			<p:inputText value="#{consultarInstitucionMB.filtro}" id="name" required="true" style="color:blue;" />
-			<p:commandButton id="btnBusqueda" value="Buscar"
-				action="#{consultarInstitucionMB.buscar}"
-				update="formularioInsti:listaInstituciones"
-				 />
-			<h:outputText value="Opciones: " style="color:blue;" />
-			<p:selectOneRadio id="opciones"
-				value="#{consultarInstitucionMB.opcionBusqueda}">
-				<f:selectItem itemLabel="nombre" itemValue="1" />
-				<f:selectItem itemLabel="ugel" itemValue="2" />
-				<f:selectItem itemLabel="distrito" itemValue="3" />
-			</p:selectOneRadio>
-		</h:panelGrid>
-		<div style="width: 900px">
+	
+	<h3>Consultar Instituciones</h3>
+    <p:outputPanel id="customPanel">
+    <p:selectOneRadio id="customRadio" value="#{consultarInstitucionMB.opcionBusqueda}" layout="custom">        
+        <f:selectItem itemLabel="Nombre" itemValue="1" />
+        <f:selectItem itemLabel="UGEL" itemValue="2" />
+        <f:selectItem itemLabel="Distrito" itemValue="3" />       
+        <p:ajax event="change" listener="#{consultarInstitucionMB.opcionActiva}" 
+        update="boxNombre,boxUgel,boxDistrito"/> 
+    </p:selectOneRadio>
+ 
+    <h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
+        <p:radioButton id="opt1" for="customRadio" itemIndex="0"/>
+        <h:outputLabel for="opt1" value="Nombre" />
+        <p:inputText id="boxNombre"  value="#{consultarInstitucionMB.filtro}" >
+ 			<p:ajax id="ab1" event="keyup" listener="#{consultarInstitucionMB.buscar}" update="formularioInsti:listaInstituciones" />
+ 		</p:inputText>
+ 		
+        <p:radioButton id="opt2" for="customRadio" itemIndex="1"/>
+        <h:outputLabel for="opt2" value="UGEL" />
+        <p:selectOneMenu id="boxUgel" value="#{consultarInstitucionMB.sUgel}">
+            <f:selectItem itemLabel="UGEL" itemValue="0" />
+            <f:selectItem itemLabel="1" itemValue="1" />
+            <f:selectItem itemLabel="3" itemValue="3" />
+            <f:selectItem itemLabel="4" itemValue="4" />   
+            <f:selectItem itemLabel="5" itemValue="5" />
+            <f:selectItem itemLabel="6" itemValue="6" />
+            <f:selectItem itemLabel="7" itemValue="7" />   
+            <p:ajax event="change"  listener="#{consultarInstitucionMB.buscarUgel()}" 
+        update="formularioInsti:listaInstituciones"/>
+        </p:selectOneMenu>
+ 
+        <p:radioButton id="opt3" for="customRadio" itemIndex="2"/>
+        <h:outputLabel for="opt3" value="Distrito" />
+        <p:inputText id="boxDistrito" value="#{consultarInstitucionMB.filtro3}">
+        	<p:ajax event="keyup" listener="#{consultarInstitucionMB.buscarDistrito}" update="formularioInsti:listaInstituciones" />
+        </p:inputText>
+    </h:panelGrid>    
+    </p:outputPanel>
+					
+		<div style="width: 700px">
 			<br />
 			<fieldset>
 				<legend style="color:blue;">Listado de Instituciones</legend>
@@ -55,7 +86,18 @@
 				
 			</fieldset>
 		</div>
-		</center>
 	</h:form>
+</div>
+	
+	</td>
+  	<td style="width:20%">
+  	<h3>Widgets Educativos</h3>
+	<p:media value="http://www.youtube.com/v/YOp5fCjyf0A" width="420" height="265" player="flash"/>
+  	
+  	... más widgets
+  	</td>
+</tr>
+</table>
+
 </h:body>
 </html>

@@ -15,9 +15,9 @@ public class ImageSwitchMB implements Serializable {
 	  
     public ImageSwitchMB() {  
         images = new ArrayList<String>();  
-        images.add("resources/img/instituciones.jpg");
+        images.add("resources/img/muniLima.jpg");
         images.add("resources/img/colegio_guadalupe.jpg");  
-        images.add("resources/img/muniLima.jpg");  
+        images.add("resources/img/School_front.jpg");  
         
     }  
   

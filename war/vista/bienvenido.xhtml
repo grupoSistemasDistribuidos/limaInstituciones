@@ -12,19 +12,18 @@
       <title>Instituciones de Lima</title>
    </h:head>
    <h:body id="body">
+   <div id="bienvenido" align="center" style="font-size:12px;font-family: verdana,arial, sans-serif;">
    <h:form>
    		 <p:menubar autoDisplay="false">  
-   		 	<p:menuitem value="Save"/>
-	        <p:submenu label="Acerca De" icon="ui-icon-help" style="position:absolute; right:20px">  
-	            <p:menuitem value="1" url="#" />  
-	            <p:separator />  
-	            <p:menuitem value="2" url="#" />  
+   		 	<p:menuitem value="Lima Instituciones"/>
+	        <p:submenu label="Acerca De" icon="ui-icon-gear" style="position:absolute; right:20px">  
+	            <p:menuitem value="Grupo" onclick = "dlgTeam.show()"/>  
         	</p:submenu>  
         </p:menubar>
-  
+  		<br/>
    		<center>
    		
-   		<table style="width:90%">
+   		<table style="width:70%">
 			<tr>
 			  <td style="width:10px"><p:commandButton type="button" onclick="PF('switcher').previous();"
 		icon="ui-icon-circle-triangle-w" /></td>
@@ -40,16 +39,26 @@
 			</tr>
 		</table> 
 		
-   		   		      
-	<h1>Bienvenido a Lima Instituciones</h1>
+		<br/>		      
+		<p:graphicImage value="/resources/img/bienvenido.png" width="500"/>
+    	<br/>
+    	<h:outputLabel value="Encuentra toda la información de los colegios de Lima Metropolitana" />
+    	<br/><br/>
+		<p:commandButton id="basic" value="Entrar" action="#{navegarMB.entrar}"  />    
+		
     	
-    	
-    	<h:panelGrid columns="1" cellpadding="5">  
-		    <p:commandButton id="basic" value="Entrar" 
-		    		action="#{navegarMB.entrar}"  />    
-		</h:panelGrid>  
-    	</center>
+   	<p:dialog id="showTeam" header="Desarrollado por" width="300"  modal="true" widgetVar="dlgTeam"> 		
+		    <b><h:outputText value="Grupo 9" /></b><br/><br/>
+		    <h:outputText value="CUBA ESTRELLA, Omar" /><br/>
+		    <h:outputText value="BERTO CASTRO, Felix Ricardo" /><br/>
+		    <h:outputText value="HUARANCCA GÓMEZ, Juan Diego" /><br/>
+		    <h:outputText value="DURAN CARRILLO, Luis Antonio" /><br/>
+		    <br/>
+		    <h:outputText value="Sistemas Distribuidos 2014-I" /><br/><br/>
+		</p:dialog>
+	</center>
    	</h:form>
+   	</div>
    </h:body>
     
 </html>
