@@ -2,6 +2,7 @@ package com.fisi.modelo.daoImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -18,7 +19,7 @@ public class InstitucionDAOImpl implements InstitucionDAO{
 		final PersistenceManager pm = PMF.get().getPersistenceManager();
 		final Query query = pm.newQuery(Institucion.class);
 		// query.setRange(0, FETCH_MAX_RESULTS);
-		return(ArrayList<Institucion>)query.execute();
+		return(new ArrayList<Institucion>((List<Institucion>)query.execute()));
 	}
 	@Override
 	public void insertarTodoInstitucion(ArrayList<Institucion> instituciones) {

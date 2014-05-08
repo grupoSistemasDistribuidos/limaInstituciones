@@ -1,11 +1,16 @@
 package com.fisi.controlador;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 import sun.org.mozilla.javascript.internal.ast.ForInLoop;
 
@@ -43,22 +48,48 @@ public class ConsultarInstitucionMB implements Serializable {
 		opcionBusqueda = 1;
 		instituciones = new ArrayList<Institucion>();
 		institucionesFiltro = new ArrayList<Institucion>();
-		
-		// no funciono el ejemplo u.u
-		//Aquí se cargará desde la BD todas las instituciones
-		Institucion ejemplo = new Institucion(1, "guadalupe", "1",
+		/*cargarBaseDatosInstituciones();
+		Institucion ejemplo = new Institucion(new Long(1), "guadalupe", "1",
 				"San Juan de Lurigancho");
-		Institucion ejemplo2 = new Institucion(2, "santa fe", "2",
+		Institucion ejemplo2 = new Institucion(new Long(2), "santa fe", "2",
 				"San Martin de Porres");
-		Institucion ejemplo3 = new Institucion(3, "priale", "3",
+		Institucion ejemplo3 = new Institucion(new Long(3), "priale", "3",
 				"San Juan de Lurigancho");
 		instituciones.add(ejemplo);
 		instituciones.add(ejemplo2);
-		instituciones.add(ejemplo3);
-		//institucionDAO.insertarTodoInstitucion(instituciones);
-		//instituciones.clear();
-		//instituciones=institucionDAO.buscarInstituciones();
+		instituciones.add(ejemplo3);*/
+		institucionDAO.insertarTodoInstitucion(leerTxtInstituciones());
+		instituciones.clear();
+		instituciones=institucionDAO.buscarInstituciones();
 		copiarTodo(instituciones);
+	}
+
+	private ArrayList<Institucion> leerTxtInstituciones() {
+		ArrayList<Institucion> instituciones = new ArrayList<Institucion>();
+		ServletContext servletContext=(ServletContext) FacesContext.getCurrentInstance ().getExternalContext().getContext();
+		String web_infpath= servletContext.getRealPath("/resources/datos");
+		//String web_infpath= servletContext.getRealPath(separator+"WEB-INF"+separator);
+		try {
+			FileReader lectura = new FileReader(web_infpath+ "/instituciones.txt");
+			BufferedReader entrada = new BufferedReader(lectura);
+			String linea = entrada.readLine();
+			while (linea != null && linea.length() > 0) {
+				StringTokenizer marca = new StringTokenizer(linea, ",");
+				Institucion xInstitucion = new Institucion();
+				xInstitucion.setId(Long.parseLong(marca.nextToken()));
+				xInstitucion.setSector(marca.nextToken());
+				xInstitucion.setUgel(marca.nextToken());
+				xInstitucion.setNombre(marca.nextToken());
+				xInstitucion.setDireccion(marca.nextToken());
+				xInstitucion.setDistrito(marca.nextToken());
+				instituciones.add(xInstitucion);
+				linea = entrada.readLine();
+			}
+			entrada.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return instituciones;
 	}
 
 	private void copiarTodo(ArrayList<Institucion> listaInsti) {

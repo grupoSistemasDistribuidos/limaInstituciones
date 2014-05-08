@@ -11,20 +11,24 @@ import javax.jdo.annotations.PrimaryKey;
 public class Institucion implements Serializable{
 	private static final long serialVersionUID = 3896230783384250347L;
 	@PrimaryKey
-    @Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
-	private int id;
+	//@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
+	private Long id;
 	@Persistent
 	private String nombre;
 	@Persistent
 	private String ugel;
 	@Persistent
 	private String distrito;
+	@Persistent
+	private String sector;
+	@Persistent
+	private String direccion;
 	
 	public Institucion() {
 		super();
 	}
 	
-	public Institucion(int id, String nombre, String ugel, String distrito) {
+	public Institucion(Long id, String nombre, String ugel, String distrito) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -32,11 +36,11 @@ public class Institucion implements Serializable{
 		this.distrito = distrito;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -62,6 +66,22 @@ public class Institucion implements Serializable{
 
 	public void setDistrito(String distrito) {
 		this.distrito = distrito;
+	}
+
+	public String getSector() {
+		return sector;
+	}
+
+	public void setSector(String sector) {
+		this.sector = sector;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 	
 
