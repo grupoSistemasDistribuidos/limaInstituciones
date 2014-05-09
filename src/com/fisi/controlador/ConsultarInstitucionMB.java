@@ -36,6 +36,7 @@ public class ConsultarInstitucionMB implements Serializable {
 	private ArrayList<Institucion> institucionesFiltro;
 	private static final long serialVersionUID = 6586451817677535594L;
 	private InstitucionDAO institucionDAO= new InstitucionDAOImpl();
+	private Institucion selectedInstitucion;
 	
 	public ConsultarInstitucionMB() {
 		init();
@@ -262,6 +263,14 @@ public class ConsultarInstitucionMB implements Serializable {
 
 	public void setsUgel(int sUgel) {
 		this.sUgel = sUgel;
+	}
+
+	public Institucion getSelectedInstitucion() {
+		return selectedInstitucion;
+	}
+
+	public void setSelectedInstitucion(Institucion selectedInstitucion) {
+		this.selectedInstitucion = selectedInstitucion;
 	}
 
 }
